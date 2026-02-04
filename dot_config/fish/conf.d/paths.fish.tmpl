@@ -1,11 +1,22 @@
 # Additional PATH entries (ported from zsh config)
 
-# Cargo/Rust (cross-platform)
+# Cross-platform paths
+
+# Cargo/Rust
 fish_add_path ~/.cargo/bin
+
+# Local binaries (uv, pip installs, etc.)
+fish_add_path ~/.local/bin
+
+# Turso CLI (if installed)
+fish_add_path ~/.turso
 
 {{- if eq .chezmoi.os "darwin" }}
 
 # macOS-specific paths
+
+# Homebrew (Apple Silicon)
+fish_add_path /opt/homebrew/bin
 
 # Llama.cpp binaries
 fish_add_path ~/.local/share/llama-cpp/bin
@@ -13,17 +24,11 @@ fish_add_path ~/.local/share/llama-cpp/bin
 # Antigravity
 fish_add_path ~/.antigravity/antigravity/bin
 
-# Homebrew (Apple Silicon)
-fish_add_path /opt/homebrew/bin
-
 {{- else if eq .chezmoi.os "linux" }}
 
 # Linux-specific paths
 
 # Llama.cpp (if installed)
 fish_add_path ~/.local/share/llama-cpp/bin
-
-# Local binaries
-fish_add_path ~/.local/bin
 
 {{- end }}
