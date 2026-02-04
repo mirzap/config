@@ -1,0 +1,51 @@
+# Fish Shell Configuration
+# Managed by chezmoi - https://github.com/mirzap/config
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f $HOME/.miniconda3/bin/conda
+    eval $HOME/.miniconda3/bin/conda "shell.fish" hook $argv | source
+else
+    if test -f "$HOME/.miniconda3/etc/fish/conf.d/conda.fish"
+        . "$HOME/.miniconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "$HOME/.miniconda3/bin" $PATH
+    end
+end
+# <<< conda initialize <<<
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS-specific paths
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH $HOME/.lmstudio/bin
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# opencode
+fish_add_path $HOME/.opencode/bin
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+{{ end -}}
+
+{{ if eq .chezmoi.os "linux" -}}
+# Linux-specific configuration
+# Add any Linux-specific paths here
+{{ end -}}
+
+# Starship prompt
+if command -v starship > /dev/null
+    starship init fish | source
+end
+
+# Zoxide - smart cd with history (replaces cd command)
+if command -v zoxide > /dev/null
+    zoxide init fish --cmd cd | source
+end
+
+# Source all conf.d files (for manual reload support)
+for f in ~/.config/fish/conf.d/*.fish
+    source $f
+end

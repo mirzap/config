@@ -1,0 +1,26 @@
+# Machine-specific chezmoi configuration
+# This file is generated on first run of `chezmoi init`
+
+[data]
+{{- $name := promptStringOnce . "name" "Your full name" -}}
+{{- $email := promptStringOnce . "email" "Your email" }}
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    
+{{- if eq .chezmoi.os "darwin" }}
+    ostype = "macos"
+{{- else if eq .chezmoi.os "linux" }}
+    {{- if (.chezmoi.kernel.osrelease | lower | contains "arch") }}
+    ostype = "archlinux"
+    {{- else }}
+    ostype = "linux"
+    {{- end }}
+{{- else }}
+    ostype = "other"
+{{- end }}
+
+{{- if eq .chezmoi.os "darwin" }}
+    homebrew = true
+{{- else }}
+    homebrew = false
+{{- end }}

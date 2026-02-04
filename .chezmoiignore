@@ -1,0 +1,21 @@
+# Ignore secrets file - contains API tokens
+# Users should create this manually on each machine
+.config/fish/conf.d/secrets.fish
+
+# OS-specific ignores
+{{- if eq .chezmoi.os "darwin" }}
+# Ignore Linux-specific files on macOS
+{{- end }}
+
+{{- if eq .chezmoi.os "linux" }}
+# Ignore macOS-specific files on Linux
+{{- end }}
+
+# Editor backups
+*~
+*.swp
+*.swo
+.DS_Store
+
+# Nvim local state (generated)
+.config/nvim/lazy-lock.json

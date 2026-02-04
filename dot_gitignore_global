@@ -1,0 +1,15 @@
+CLAUDE.md
+AGENTS.md
+.claude/
+.taskmaster/
+.mcp.json
+.kiro/
+.vscode/
+.cursor/
+.turbo/
+.fix-notes/
+.notes/
+.planning/
+
+#src/database/ownership.json
+tools/
